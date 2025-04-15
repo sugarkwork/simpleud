@@ -104,6 +104,30 @@ await uploader.async_upload('example.txt', retries=5, retry_delay=2.0)
 await uploader.async_download('example.txt', retries=5, retry_delay=2.0)
 ```
 
+## サーバーサイドの設定
+
+SimpleUDを使用するには、ファイルをアップロードするためのサーバーサイドスクリプトが必要です。`examples/server`ディレクトリにサンプルのPHPスクリプトが用意されています：
+
+```
+examples/server/
+├── README.md                                      # サーバーサイドスクリプトの説明
+└── uploader_e5796bd71a1642e97258a1835419f431.php # アップロード処理用PHPスクリプト
+```
+
+このPHPスクリプトをWebサーバーにアップロードし、SimpleUDの設定で指定することで、ファイルのアップロード・ダウンロードが可能になります：
+
+```python
+from simpleud import FileUploaderDownloader
+
+uploader = FileUploaderDownloader(
+    server_address='https://your-server.com',
+    upload_path='path/to/uploader_e5796bd71a1642e97258a1835419f431.php',
+    download_base_path='uploaded_files_e5796bd71a1642e97258a1835419f431'
+)
+```
+
+詳細な設定方法や注意点については、`examples/server/README.md`を参照してください。
+
 ## ライセンス
 
 このプロジェクトはMITライセンスの下で公開されています。詳細は[LICENSE](LICENSE)ファイルを参照してください。
